@@ -1,0 +1,37 @@
+# Standard operation-unit names. Spec §6.
+# Categories are for grouping in scan output; not used as filters.
+units:
+  - { name: nav,            category: navigation,    aliases: [navigation] }
+  - { name: topbar,         category: navigation,    aliases: [header, appbar, top_bar] }
+  - { name: bottombar,      category: navigation,    aliases: [bottom_nav, bottom_navigation, BottomNavigationBar] }
+  - { name: sidebar,        category: navigation,    aliases: [side_nav, side_panel] }
+  - { name: drawer,         category: navigation,    aliases: [nav_drawer, Drawer] }
+  - { name: tabbar,         category: navigation,    aliases: [tabs, TabBar] }
+
+  - { name: banner,         category: feedback,      aliases: [MaterialBanner] }
+  - { name: alert,          category: feedback,      aliases: [AlertDialog, alertbox] }
+  - { name: confirm,        category: feedback,      aliases: [confirm_dialog, ConfirmDialog] }
+  - { name: dialog,         category: feedback,      aliases: [Dialog, modal_dialog] }
+  - { name: modal,          category: feedback,      aliases: [Modal] }
+  - { name: sheet,          category: feedback,      aliases: [BottomSheet, action_sheet, ActionSheet] }
+  - { name: toast,          category: feedback,      aliases: [Toast] }
+  - { name: snackbar,       category: feedback,      aliases: [SnackBar] }
+  - { name: tooltip,        category: feedback,      aliases: [Tooltip] }
+  - { name: popover,        category: feedback,      aliases: [Popover, PopupMenu] }
+
+  - { name: card,           category: container,     aliases: [Card] }
+  - { name: list,           category: container,     aliases: [ListView] }
+  - { name: listitem,       category: container,     aliases: [ListTile, list_item] }
+  - { name: ticket,         category: container,     aliases: [TicketCard, ticket_card] }
+  - { name: slide,          category: container,     aliases: [slide_page, PageView] }
+  - { name: carousel,       category: container,     aliases: [Carousel, swiper] }
+
+  - { name: form,           category: input,         aliases: [Form] }
+  - { name: input,          category: input,         aliases: [TextField, TextFormField] }
+  - { name: button,         category: input,         aliases: [ElevatedButton, TextButton, Button] }
+  - { name: fab,            category: input,         aliases: [FloatingActionButton, floating_action_button] }
+
+  - { name: empty_state,    category: state,         aliases: [EmptyState, empty] }
+  - { name: error_state,    category: state,         aliases: [ErrorState, error_view] }
+  - { name: loading_state,  category: state,         aliases: [Loading, loader] }
+  - { name: skeleton,       category: state,         aliases: [Skeleton, shimmer] }

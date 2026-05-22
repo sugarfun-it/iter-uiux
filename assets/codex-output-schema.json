@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/<user>/iter-uiux/assets/codex-output-schema.json",
+  "title": "iter-uiux codex exec output",
+  "description": "Structured response returned by codex acting as UI/UX supervisor in any of the three modes (advisor, reviewer, global). Spec §5.",
+  "type": "object",
+  "required": ["issues", "need_more", "verdicts", "done"],
+  "additionalProperties": false,
+  "properties": {
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "area", "description", "suggested_fix"],
+        "additionalProperties": false,
+        "properties": {
+          "id":            { "type": "string", "minLength": 1 },
+          "severity":      { "enum": ["high", "med", "low"] },
+          "area":          { "enum": ["visual", "interaction", "copy", "structure", "a11y", "rwd", "i18n", "design_system"] },
+          "description":   { "type": "string", "minLength": 1 },
+          "suggested_fix": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "need_more": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "detail"],
+        "additionalProperties": false,
+        "properties": {
+          "kind":   { "enum": ["screenshot", "source", "flow", "state"] },
+          "detail": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["issue_id", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "issue_id": { "type": "string", "minLength": 1 },
+          "status":   { "enum": ["addressed", "partially", "not_addressed", "regressed"] },
+          "note":     { "type": "string" }
+        }
+      }
+    },
+    "done": { "type": "boolean" }
+  }
+}
