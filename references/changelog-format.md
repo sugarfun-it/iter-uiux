@@ -102,9 +102,9 @@
 
 ## Anti-loop annotation
 
-If the anti-loop guard from `failure-recovery.md` forces convergence, write into the round's reviewer section:
+If the anti-loop guard from `failure-recovery.md` forces convergence, write into the round's reviewer section using this exact wording:
 
 ```markdown
 ### Round K (reviewer)
-**Forced convergence.** Codex's issues[] was byte-identical to round K-2's. Marked `diverged, stopped at round K`.
+**Forced convergence.** issues[] identical to the previous reviewer round. Marked `diverged, stopped at round K`.
 ```

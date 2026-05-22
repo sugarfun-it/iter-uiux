@@ -60,11 +60,11 @@ When something fails, follow the auto-fix steps below before halting. Only halt 
 1. Send one corrective re-prompt:
    ```
    Your prior response did not match the required JSON schema at
-   <abs path to assets/codex-output-schema.json>. Reply ONLY with JSON
+   <skill_root>/assets/codex-output-schema.json. Reply ONLY with JSON
    matching that schema. No prose, no fences.
    ```
 2. Re-validate against the schema.
-3. After 2 corrective failures: mark unit `blocked: codex output invalid`, continue with next unit.
+3. If the re-validated response still fails: mark unit `blocked: codex output invalid`, continue with next unit. (One corrective re-prompt, no second retry.)
 
 ### Build / lint fails after Claude edit
 1. If purely lint warnings: run the project's lint --fix once (e.g., `dart fix --apply`, `eslint --fix`, `prettier -w`).
@@ -72,11 +72,13 @@ When something fails, follow the auto-fix steps below before halting. Only halt 
 3. Mark the originating issue `attempt_failed` in the next reviewer call's mapping_notes. The unit proceeds to the next round; codex may suggest a different approach.
 
 ### Unit not converging (codex loops)
-1. After each reviewer round, compare codex's `issues[]` to the same field two rounds prior (canonicalize: sort by id; compare as JSON).
-2. If byte-identical: force convergence. Stop the unit's loop. Write to CHANGELOG:
+"Reviewer round K" here counts only reviewer rounds (round 1 = first reviewer call, i.e., what the changelog labels as `Round 2 (reviewer)` since Round 1 was the advisor). Claude-action sub-rounds are not counted.
+
+1. After each reviewer round, compare codex's `issues[]` to the equivalent field one reviewer round earlier (canonicalize: sort by `id`; compare as JSON). The guard can first trigger at reviewer round 2 (the second reviewer call).
+2. If byte-identical to the previous reviewer round: force convergence. Stop the unit's loop. Write to CHANGELOG:
    ```
    ### Round K (reviewer)
-   **Forced convergence.** issues[] identical to round K-2.
+   **Forced convergence.** issues[] identical to the previous reviewer round.
    Marked `diverged, stopped at round K`.
    ```
 3. Continue to the next unit.

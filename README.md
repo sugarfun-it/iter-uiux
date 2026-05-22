@@ -9,7 +9,7 @@ Fully automated — no per-round approval prompts.
 ## Install
 
 ```bash
-git clone https://github.com/<user>/iter-uiux.git
+git clone https://github.com/sugarfun-it/iter-uiux.git
 # either symlink:
 ln -s "$(pwd)/iter-uiux" ~/.claude/skills/iter-uiux
 # or copy:
@@ -63,4 +63,4 @@ Visual, interaction, copy, structure, accessibility (a11y), responsive (RWD), in
 
 ## Status
 
-In active development. Tracking the implementation plan in [`2026-05-22-iter-uiux-plan.md`](./2026-05-22-iter-uiux-plan.md).
+Initial implementation complete. See [`2026-05-22-iter-uiux-plan.md`](./2026-05-22-iter-uiux-plan.md) for the implementation record. First real-project shakedown still pending.

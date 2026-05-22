@@ -23,8 +23,9 @@ Phase 5  Summary
 
 ### Phase 1 — Environment prep
 - Verify cwd is the target project root (look for pubspec.yaml / package.json / index.html / etc).
-- Detect project type and ensure the app can be launched. See `references/screenshot-protocol.md`.
+- Detect project type and verify the app can be launched. See `references/unit-scan.md` (project-type detection + launch commands) and `references/screenshot-protocol.md` (screenshot toolchain pre-check).
 - Verify `codex exec --version` works.
+- Detect the codex image flag and cache it to `.iter-uiux/.runtime-state.json`. See `references/codex-prompt.md` § Image flag detection.
 - Prepare `.iter-uiux/`:
   - If `.iter-uiux/CHANGELOG.md` exists, rename it to `.iter-uiux/CHANGELOG.<UTC-timestamp>.md`.
   - Create a fresh `.iter-uiux/CHANGELOG.md` and write the header + Environment block (see `references/changelog-format.md`).

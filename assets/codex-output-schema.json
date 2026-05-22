@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/<user>/iter-uiux/assets/codex-output-schema.json",
+  "$id": "https://github.com/sugarfun-it/iter-uiux/assets/codex-output-schema.json",
   "title": "iter-uiux codex exec output",
   "description": "Structured response returned by codex acting as UI/UX supervisor in any of the three modes (advisor, reviewer, global). Spec §5.",
   "type": "object",

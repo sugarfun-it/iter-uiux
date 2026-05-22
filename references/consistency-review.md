@@ -28,7 +28,7 @@ The anti-loop guard from `failure-recovery.md` applies here too.
 
 ## Recording
 
-Write the global section under `## Global Consistency Review` per the format in `changelog-format.md`. Each round writes the same fields a unit round writes (codex JSON, files modified, mapping notes, verdicts). Ensure all changes maintain design system coherence.
+Write the global section under `## Global Consistency Review` per the format in `changelog-format.md`. Each round writes the same fields a unit round writes (codex JSON, files modified, mapping notes, verdicts). Design-system coherence is what codex evaluates in this phase — Claude applies what codex flags, not Claude's own assessment.
 
 ## Convergence
 

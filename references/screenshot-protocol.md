@@ -42,7 +42,7 @@ If `xcrun` is not available (non-macOS), iOS capture is unsupported — proceed 
 Use playwright if installed (`npx playwright --version` to detect). Else use puppeteer (`npx puppeteer --version`).
 
 ```js
-// scripts/.iter-uiux-capture.mjs (generated at Phase 1)
+// .iter-uiux/capture.mjs (generated at Phase 1)
 import { chromium } from 'playwright';
 const [url, outPath] = process.argv.slice(2);
 const b = await chromium.launch();
@@ -53,7 +53,7 @@ await p.screenshot({ path: outPath, fullPage: false });
 await b.close();
 ```
 
-Run: `node scripts/.iter-uiux-capture.mjs <url> <outpath>`.
+Run: `node .iter-uiux/capture.mjs <url> <outpath>`.
 
 For interactive states (hover / focus / pressed), extend the script: `await p.hover('selector')` / `await p.focus(...)` / `await p.click(...)` (without releasing for pressed needs special handling — emulate via `page.dispatchEvent`).
 

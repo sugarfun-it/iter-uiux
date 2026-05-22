@@ -16,7 +16,8 @@ Codex CLI's image flag name has changed across versions. Before the first `codex
 
 ## Common rules
 
-- Always end the user prompt with: `Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-schema.json. No prose, no markdown fences.`
+- `<skill_root>` throughout this document means the absolute path of the directory containing `SKILL.md`. When this skill is installed at `~/.claude/skills/iter-uiux/`, `<skill_root>` is `~/.claude/skills/iter-uiux` (expand `~` to the operator's home directory). Resolve once at the start of the run and reuse.
+- Always end the user prompt with: `Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-schema.json. No prose, no markdown fences.` — with `<skill_root>` expanded to the absolute path.
 - Pass screenshots via the detected image flag. Multiple images: repeat the flag.
 - Pass source / CHANGELOG context inline in the prompt (as fenced code blocks). Keep total prompt under codex's context limit; if oversize, trim oldest CHANGELOG sections first.
 - After the call returns, parse stdout as JSON. On parse failure follow the corrective re-prompt path in `failure-recovery.md`.
@@ -54,7 +55,7 @@ PRIOR-UNIT CHANGELOG SECTIONS FROM THIS RUN (consistency context — do not be
 constrained by them, but flag conflicts)
 <changelog sections so far, or "none yet" if first unit>
 
-Reply ONLY with JSON matching the schema at <abs path to codex-output-schema.json>.
+Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-schema.json.
 No prose, no markdown fences.
 ```
 
@@ -93,7 +94,7 @@ not_addressed | regressed). You may also emit new issues if Claude's
 changes introduced new problems. If everything is addressed and there
 are no new issues and no further need_more, set done: true.
 
-Reply ONLY with JSON matching the schema at <abs path>. No prose.
+Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-schema.json. No prose.
 ```
 
 Pass via image flag: the recaptured screenshots (same state set as the unit's tracked states, plus any new states from prior need_more).
