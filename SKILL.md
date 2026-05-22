@@ -14,6 +14,7 @@ You are about to run a strict UI/UX iteration loop on the current project. Codex
 ## Lifecycle
 
 ```
+Phase 0  Sandbox entry interview  (only interactive phase)
 Phase 1  Environment prep
 Phase 2  Unit scan
 Phase 3  Per-unit iteration (sequential)
@@ -21,9 +22,18 @@ Phase 4  Global consistency review
 Phase 5  Summary
 ```
 
+### Phase 0 — Sandbox entry interview
+- Do **not** pre-scan the project. Ask the user **one** open question in a single message, covering all of:
+  - how to start dev (command / URL)
+  - which route / page / screen is the safe anchor to iterate on
+  - login or test account, if any
+  - rough scope hint (which area is fair game to mess with)
+- Read the user's free-form reply and try to parse out `launch`, `anchor_url`, `login`, `scope`. If a critical field is missing or genuinely ambiguous, ask **one** follow-up question targeting only the missing piece; otherwise proceed silently (one short line of confirmation is fine).
+- Persist the parsed result to `.iter-uiux/.runtime-state.json` under key `sandbox_anchor`. All later phases must read from it and operate only within this anchor.
+
 ### Phase 1 — Environment prep
 - Verify cwd is the target project root (look for pubspec.yaml / package.json / index.html / etc).
-- Detect project type and verify the app can be launched. See `references/unit-scan.md` (project-type detection + launch commands) and `references/screenshot-protocol.md` (screenshot toolchain pre-check).
+- Detect project type and verify the app can be launched. Prefer the launch command from Phase 0's `sandbox_anchor.launch` if present; otherwise fall back to `references/unit-scan.md` (project-type detection + launch commands). Also see `references/screenshot-protocol.md` (screenshot toolchain pre-check).
 - Verify `codex exec --version` works.
 - Detect the codex image flag and cache it to `.iter-uiux/.runtime-state.json`. See `references/codex-prompt.md` § Image flag detection.
 - Prepare `.iter-uiux/`:
@@ -32,6 +42,7 @@ Phase 5  Summary
 
 ### Phase 2 — Unit scan
 - Follow `references/unit-scan.md`. Map raw labels onto `assets/unit-dictionary.yaml`.
+- Scope the scan to the sandbox anchor: navigate to `sandbox_anchor.anchor_url` (logging in via `sandbox_anchor.login` if given) and only enumerate units reachable from there within `sandbox_anchor.scope`.
 - Append the "Detected Units" table to `CHANGELOG.md`.
 
 ### Phase 3 — Per-unit iteration (sequential)
@@ -60,7 +71,7 @@ For each detected unit, in order:
 
 ## Invariants
 
-1. **Fully automated.** No per-round user approval. Do not ask the user for input during Phases 1–5.
+1. **Fully automated after Phase 0.** Phase 0 is the only point that takes user input (one open question, plus at most one clarifying follow-up). Phases 1–5 must not ask the user for input.
 2. **Fresh scan every run.** Always re-scan all units. Never carry previous-run context into codex.
 3. **Archive, don't accumulate.** Each run starts a fresh `CHANGELOG.md`; old changelog files are renamed with a timestamp suffix. Archives are not fed to codex.
 4. **Codex decides convergence.** Iterate until codex returns `done: true`. Only the anti-loop guard (failure-recovery.md) overrides this.
@@ -78,4 +89,4 @@ For each detected unit, in order:
 ## Entry
 
 1. Confirm cwd is a project root (not the iter-uiux skill repo itself, not a parent dir).
-2. Enter Phase 1.
+2. Enter Phase 0.
