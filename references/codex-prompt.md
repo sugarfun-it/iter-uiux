@@ -18,7 +18,7 @@ Codex CLI's image flag name has changed across versions. Before the first `codex
 
 - `<skill_root>` throughout this document means the absolute path of the directory containing `SKILL.md`. When this skill is installed at `~/.claude/skills/iter-uiux/`, `<skill_root>` is `~/.claude/skills/iter-uiux` (expand `~` to the operator's home directory). Resolve once at the start of the run and reuse.
 - Always end the user prompt with: `Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-schema.json. No prose, no markdown fences.` — with `<skill_root>` expanded to the absolute path.
-- Pass screenshots via the detected image flag. Multiple images: repeat the flag.
+- Pass screenshots via the detected image flag. Multiple images: repeat the flag. Each state contributes **two** images in this order: `-viewport.png` first (initial-fold impression), then `-fullpage.png` (entire scroll height for layout / cross-section consistency). Mention this ordering explicitly in the prompt body so codex can refer to them.
 - Pass source / CHANGELOG context inline in the prompt (as fenced code blocks). Keep total prompt under codex's context limit; if oversize, trim oldest CHANGELOG sections first.
 - After the call returns, parse stdout as JSON. On parse failure follow the corrective re-prompt path in `failure-recovery.md`.
 
@@ -59,7 +59,7 @@ Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-sch
 No prose, no markdown fences.
 ```
 
-Pass via image flag: the entry-state screenshot.
+Pass via image flag: the entry-state screenshots — `-viewport.png` first, then `-fullpage.png`.
 
 Expected output shape: `{ issues: [...], need_more: [...], verdicts: [], done: false }` (or `done: true` if nothing to fix).
 
@@ -87,7 +87,7 @@ CLAUDE'S RESPONSE PAYLOAD
     ...
   extra_data: <any source/flow info you asked for in last need_more>
 
-SCREENSHOTS ATTACHED: <state list, in order of image flags>
+SCREENSHOTS ATTACHED: <state list, in order of image flags; each state contributes viewport then fullpage>
 
 Now produce verdicts for each prior issue_id (addressed | partially |
 not_addressed | regressed). You may also emit new issues if Claude's
@@ -97,7 +97,7 @@ are no new issues and no further need_more, set done: true.
 Reply ONLY with JSON matching the schema at <skill_root>/assets/codex-output-schema.json. No prose.
 ```
 
-Pass via image flag: the recaptured screenshots (same state set as the unit's tracked states, plus any new states from prior need_more).
+Pass via image flag: the recaptured screenshots (same state set as the unit's tracked states, plus any new states from prior need_more). Each state: viewport first, then fullpage.
 
 ## Global mode (Phase 4)
 
@@ -117,7 +117,7 @@ User prompt body:
 ALL UNIT CHANGELOG SECTIONS FROM THIS RUN
 <concat of every unit's section>
 
-ATTACHED SCREENSHOTS: <unit -> state mapping, one image per attachment>
+ATTACHED SCREENSHOTS: <unit -> state mapping; each state contributes viewport then fullpage, in attachment order>
 
 Emit issues that span multiple units, or are about the design system as a
 whole. Use the same JSON schema. When no cross-unit inconsistencies remain,

@@ -5,7 +5,7 @@ After all units in Phase 3 have converged (or been marked blocked / skipped), ru
 ## Inputs
 
 - Every Unit section already written in `CHANGELOG.md`.
-- Final screenshots from each unit: pass the latest round's default-state screenshot per unit as image attachments to codex. For units with multiple representative states (e.g., button: default, pressed, disabled), pass all of them; codex needs to see variants to flag inconsistency.
+- Final screenshots from each unit: pass the latest round's default-state screenshots per unit as image attachments to codex — both the `-viewport.png` and the `-fullpage.png` (fullpage is especially load-bearing here for cross-unit layout / token drift). For units with multiple representative states (e.g., button: default, pressed, disabled), pass all of them, each as viewport+fullpage pair; codex needs to see variants to flag inconsistency.
 
 ## Loop
 
